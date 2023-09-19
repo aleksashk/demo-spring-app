@@ -18,4 +18,9 @@ public class TaskRepositoryImpl implements TaskRepository {
     public List<Task> findAll() {
         return tasks;
     }
+
+    @Override
+    public void save(Task task) {
+        tasks.add(task);
+    }
 }
