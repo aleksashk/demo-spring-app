@@ -79,11 +79,26 @@ class TasksRestControllerTest {
     }
 
     @Test
-    void handleFindTask() {
+    void handleCreateNewTask_PayloadIsInvalid_ReturnsValidResponseEntity() {
         //given
+        var details = "    ";
+        var locale = Locale.US;
+        var errorMessage = "Details is empty";
 
+        doReturn(errorMessage).when(this.messageSource).getMessage("tasks.create.details.errors.not_set",
+                new Object[0],
+                locale);
         //when
-
+        var responseEntity = this.controller.handleCreateNewTask(new NewTaskPayload(details),
+                UriComponentsBuilder.fromUriString("http://localhost:8080"), locale);
         //then
+        assertNotNull(responseEntity);
+        assertEquals(HttpStatus.BAD_REQUEST, responseEntity.getStatusCode());
+        assertEquals(MediaType.APPLICATION_JSON, responseEntity.getHeaders().getContentType());
+
+        assertEquals(new ErrorsPresentation(List.of(errorMessage)), responseEntity.getBody());
+
+        verifyNoInteractions(this.taskRepository);
     }
+
 }
