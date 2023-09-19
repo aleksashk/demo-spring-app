@@ -17,8 +17,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TasksRestControllerTest {
@@ -73,8 +72,10 @@ class TasksRestControllerTest {
                     responseEntity.getHeaders().getLocation());
 
             verify(this.taskRepository).save(task);
+        } else {
+            assertInstanceOf(Task.class, responseEntity.getBody());
         }
-
+        verifyNoMoreInteractions(this.taskRepository);
     }
 
     @Test
