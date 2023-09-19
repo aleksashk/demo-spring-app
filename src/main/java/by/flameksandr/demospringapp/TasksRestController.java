@@ -27,9 +27,14 @@ public class TasksRestController {
     }
 
     @PostMapping
-    public ResponseEntity<Task> handleCreateNewTask(
+    public ResponseEntity<?> handleCreateNewTask(
             @RequestBody NewTaskPayload payload,
             UriComponentsBuilder uriComponentsBuilder) {
+        if (payload.details() == null || payload.details().isBlank()) {
+            return ResponseEntity.badRequest()
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body(new ErrorsPresentation(List.of("tasks.create.details.errors.not_set")));
+        }
         var task = new Task(payload.details());
         this.taskRepository.save(task);
         return ResponseEntity.created(uriComponentsBuilder
