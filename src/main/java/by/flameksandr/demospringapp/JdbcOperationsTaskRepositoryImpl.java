@@ -23,7 +23,9 @@ public class JdbcOperationsTaskRepositoryImpl implements TaskRepository {
 
     @Override
     public void save(Task task) {
-
+        this.jdbcOperations.update("""
+                insert into t_task(id, c_details, c_completes) values (?,?,?)
+                """, new Object[]{task.id(), task.details(), task.completed()});
     }
 
     @Override
