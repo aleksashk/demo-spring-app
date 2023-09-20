@@ -29,7 +29,7 @@ public class TasksRestController {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(this.taskRepository.findAll());
+                .body(this.taskRepository.getTasks());
     }
 
     @PostMapping

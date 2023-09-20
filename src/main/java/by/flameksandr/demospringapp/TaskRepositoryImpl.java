@@ -11,15 +11,11 @@ import java.util.UUID;
 public class TaskRepositoryImpl implements TaskRepository {
 
 
-    private final List<Task> tasks = new LinkedList<>() {{
-        this.add(new Task("First task"));
-        this.add(new Task("Second task"));
-    }};
-
-    @Override
-    public List<Task> findAll() {
+    public List<Task> getTasks() {
         return tasks;
     }
+
+    private final List<Task> tasks = new LinkedList<>();
 
     @Override
     public void save(Task task) {

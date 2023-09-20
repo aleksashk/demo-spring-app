@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface TaskRepository {
 
-    List<Task> findAll();
+    List<Task> getTasks();
 
     void save(Task task);
 

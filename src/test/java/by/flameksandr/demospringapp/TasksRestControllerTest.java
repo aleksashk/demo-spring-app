@@ -40,7 +40,7 @@ class TasksRestControllerTest {
                 new Task(UUID.randomUUID(), "Second task", true)
         );
 
-        doReturn(tasks).when(this.taskRepository).findAll();
+        doReturn(tasks).when(this.taskRepository).getTasks();
 
         //when
         var responseEntity = this.controller.handleGetAllTasks();
